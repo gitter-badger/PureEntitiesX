@@ -11,6 +11,10 @@ use pocketmine\math\Math;
 use pocketmine\math\Vector2;
 use pocketmine\math\Vector3;
 use pocketmine\entity\Creature;
+use pocketmine\block\Solid;
+use pocketmine\block\Transparent;
+use pocketmine\block\Slab;
+use pocketmine\block\Stair;
 
 abstract class WalkingEntity extends BaseEntity{
 
@@ -153,7 +157,12 @@ abstract class WalkingEntity extends BaseEntity{
 
         if(!$isJump){
             if($this->onGround){
-                $this->motionY = 0;
+                $block = $this->level->getBlock($this->add($dx, -0.1, $dz));
+                if($block instanceof Solid || $block instanceof Transparent and !$block instanceof Stair || !$block instanceof Slab) {
+                    $this->motionY = 1;
+                } else {
+                    $this->motionY = 0;
+                }
             }elseif($this->motionY > -$this->gravity * 4){
                 $this->motionY = -$this->gravity * 4;
             }else{
