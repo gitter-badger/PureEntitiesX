@@ -60,7 +60,7 @@ class AutoSpawnTask extends PluginTask {
             
                 $entity = PureEntities::create($type, $pos);
                 $time = $level->getTime() % Level::TIME_FULL;
-                
+                var_dump($level->getBlockLightAt($x, $y -1, $z));
                 if(
                     !$player->distance($entity) <= 8 &&
                     ($light = $level->getBlockLightAt($x, $y, $z)) <= 7 &&
