@@ -15,6 +15,7 @@ use pocketmine\block\Solid;
 use pocketmine\block\Transparent;
 use pocketmine\block\Slab;
 use pocketmine\block\Stair;
+use pocketmine\block\Air;
 
 abstract class WalkingEntity extends BaseEntity{
 
@@ -158,7 +159,7 @@ abstract class WalkingEntity extends BaseEntity{
         if(!$isJump){
             if($this->onGround){
                 $block = $this->level->getBlock($this->add($dx, -0.1, $dz));
-                if($block instanceof Solid || $block instanceof Transparent and !$block instanceof Stair || !$block instanceof Slab) {
+                if($block instanceof Solid || $block instanceof Transparent and !$block instanceof Stair || !$block instanceof Slab || $block instanceof Air) {
                     $this->motionY = 1;
                 } else {
                     $this->motionY = 0;
