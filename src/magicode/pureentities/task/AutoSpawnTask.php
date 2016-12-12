@@ -7,6 +7,7 @@ use magicode\pureentities\PureEntities;
 use pocketmine\entity\Entity;
 use pocketmine\level\Position;
 use pocketmine\level\Level;
+use pocketmine\math\Vector3;
 
 class AutoSpawnTask extends PluginTask {
 
@@ -60,10 +61,10 @@ class AutoSpawnTask extends PluginTask {
             
                 $entity = PureEntities::create($type, $pos);
                 $time = $level->getTime() % Level::TIME_FULL;
-                var_dump($level->getFullLight($x, $y - 1, $z));
+                var_dump($level->getFullLight(new Vector3($x, $y - 1, $z)));
                 if(
                     !$player->distance($entity) <= 8 &&
-                    ($light = $level->getFullLight($x, $y - 1, $z)) <= 7 &&
+                    ($light = $level->getFullLight(new Vector3($x, $y - 1, $z))) <= 7 &&
                     ($time < Level::TIME_DAY || $time > Level::TIME_SUNSET)
                 ) {
                     $entity->spawnToAll();
